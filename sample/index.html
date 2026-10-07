@@ -1,0 +1,365 @@
+
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>踏切おみくじ｜調布 妖怪すごろく</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F2E6CC; --card:#FFFBF2; --ink:#1F2A44; --sub:#4A5168;
+  --red:#B3261E; --gold:#E9A830; --green:#2F6B3E; --line:#1F2A44;
+  --chip:#FFF3C4;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#141B2E; --card:#1F2A44; --ink:#F2E6CC; --sub:#C9C2B0;
+    --red:#E0574C; --gold:#E9A830; --green:#6FB07D; --line:#F2E6CC; --chip:#2A3557;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141B2E; --card:#1F2A44; --ink:#F2E6CC; --sub:#C9C2B0;
+  --red:#E0574C; --gold:#E9A830; --green:#6FB07D; --line:#F2E6CC; --chip:#2A3557;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;
+  line-height:1.7; -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:460px; margin:0 auto; padding:20px 18px 40px}
+.safety{
+  display:flex; gap:10px; align-items:flex-start;
+  background:var(--chip); border:2px solid var(--line); border-radius:12px;
+  padding:10px 12px; font-size:14px; font-weight:700;
+}
+.safety svg{flex:none; margin-top:3px}
+header{text-align:center; margin:22px 0 6px}
+.series{font-size:14px; font-weight:700; color:var(--red); margin:0}
+h1{font-family:"Dela Gothic One","Hiragino Sans",sans-serif; font-weight:400; font-size:44px; line-height:1.15; margin:4px 0 0}
+
+/* crossing */
+.crossing{display:block; width:100%; max-width:300px; height:auto; margin:10px auto 0}
+.lamp{fill:#3A2A28; transition:fill .1s}
+.drawing .lamp.a{animation:blink .7s steps(1) infinite}
+.drawing .lamp.b{animation:blink .7s steps(1) infinite .35s}
+@keyframes blink{0%{fill:#FF3B2E}50%{fill:#3A2A28}}
+.bar{transform-origin:118px 178px; transform:rotate(-80deg); transition:transform .9s cubic-bezier(.5,0,.3,1)}
+.drawing .bar{transform:rotate(0deg)}
+.sound{font-family:"Dela Gothic One",sans-serif; font-size:22px; fill:var(--red); opacity:0}
+.drawing .sound{animation:pop .7s steps(1) infinite}
+@keyframes pop{0%{opacity:1}50%{opacity:0}}
+
+.btn{
+  display:block; width:100%; min-height:56px; border:3px solid var(--line); border-radius:16px;
+  background:var(--red); color:#FFFFFF; font-family:"Dela Gothic One",sans-serif; font-size:22px;
+  cursor:pointer; box-shadow:0 5px 0 var(--line); transition:transform .08s, box-shadow .08s;
+}
+.btn:active{transform:translateY(4px); box-shadow:0 1px 0 var(--line)}
+.btn:disabled{opacity:.55; cursor:default}
+.btn.ghost{background:var(--card); color:var(--ink); font-family:inherit; font-weight:900; font-size:17px}
+:focus-visible{outline:3px solid var(--gold); outline-offset:3px}
+.draw-area{margin-top:18px}
+.hint{font-size:13px; color:var(--sub); text-align:center; margin:10px 0 0}
+
+/* result */
+.slip{
+  margin-top:22px; background:var(--card); border:3px solid var(--line); border-radius:6px;
+  padding:0 0 22px; position:relative; overflow:hidden;
+  animation:slide .6s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes slide{from{transform:translateY(-24px); opacity:0}to{transform:none; opacity:1}}
+.slip-head{
+  display:flex; align-items:center; justify-content:center; gap:14px;
+  padding:18px 16px 14px; border-bottom:3px double var(--line);
+}
+.fortune{font-family:"Dela Gothic One",sans-serif; font-size:72px; line-height:1; writing-mode:vertical-rl; letter-spacing:.05em}
+.slip-meta{display:flex; flex-direction:column; gap:4px}
+.slip-meta .label{font-size:14px; font-weight:700; color:var(--sub)}
+.slip-meta .reward{font-size:20px; font-weight:900}
+.slip-body{padding:18px 18px 0}
+.q{font-size:18px; font-weight:900; margin:0 0 4px}
+.qnote{font-size:14px; color:var(--sub); margin:0 0 14px}
+.choices{display:grid; gap:10px}
+.choice{
+  min-height:52px; width:100%; text-align:left; padding:10px 14px;
+  border:2px solid var(--line); border-radius:12px; background:var(--bg); color:var(--ink);
+  font:inherit; font-size:17px; font-weight:700; cursor:pointer;
+}
+.choice[aria-pressed="true"]{background:var(--ink); color:var(--bg)}
+.choice.correct{background:var(--green); color:#FFFFFF; border-color:var(--green)}
+.choice.wrong{background:transparent; color:var(--sub); text-decoration:line-through}
+.choice:disabled{cursor:default}
+.answer{margin-top:16px; padding:14px; border-radius:12px; background:var(--chip); font-size:15px}
+.answer strong{font-size:17px}
+.result-move{
+  margin-top:18px; text-align:center; padding:16px; border-radius:14px; background:var(--ink); color:var(--bg);
+}
+.result-move .big{font-family:"Dela Gothic One",sans-serif; font-size:40px; line-height:1.2; display:block}
+.mission{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+.mission li{display:flex; gap:10px; align-items:flex-start; font-size:16px; font-weight:700}
+.mission .dot{flex:none; width:26px; height:26px; border-radius:50%; background:var(--red); color:#FFFFFF; font-size:14px; display:flex; align-items:center; justify-content:center; margin-top:2px}
+.actions{margin-top:18px; display:grid; gap:12px}
+.source{font-size:12px; color:var(--sub); margin:12px 0 0}
+footer{margin-top:28px; text-align:center; font-size:12px; color:var(--sub)}
+[hidden]{display:none !important}
+@media (prefers-reduced-motion: reduce){
+  .bar{transition:none} .slip{animation:none}
+  .drawing .lamp.a,.drawing .lamp.b,.drawing .sound{animation:none; fill:#FF3B2E; opacity:1}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="safety" role="note">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20Z"/><path d="M12 10v4"/><path d="M12 17.5v.01"/></svg>
+    <span>踏切のそばでは引かないでね。安全な場所に移動してからスマホを使おう。</span>
+  </div>
+
+  <header>
+    <h1>踏切おみくじ</h1>
+  </header>
+
+  <svg id="crossing" class="crossing" viewBox="0 0 300 230" role="img" aria-label="踏切のイラスト">
+    <rect x="0" y="212" width="300" height="10" rx="3" fill="var(--line)" opacity=".25"/>
+    <rect x="112" y="40" width="12" height="176" rx="3" fill="var(--line)"/>
+    <g transform="translate(118 46)">
+      <rect x="-48" y="-7" width="96" height="14" rx="3" fill="#F2C230" stroke="#1F2A44" stroke-width="2.5" transform="rotate(30)"/>
+      <rect x="-48" y="-7" width="96" height="14" rx="3" fill="#F2C230" stroke="#1F2A44" stroke-width="2.5" transform="rotate(-30)"/>
+      <path d="M-30 -24 l8 14 M-6 -10 l8 14 M18 4 l8 14" stroke="#1F2A44" stroke-width="5" transform="rotate(0)" opacity="0"/>
+    </g>
+    <rect x="76" y="86" width="84" height="40" rx="20" fill="#1F2A44"/>
+    <circle class="lamp a" cx="96" cy="106" r="13"/>
+    <circle class="lamp b" cx="140" cy="106" r="13"/>
+    <rect x="104" y="166" width="28" height="26" rx="4" fill="#1F2A44"/>
+    <g class="bar">
+      <rect x="118" y="172" width="176" height="12" rx="6" fill="#FFFBF2" stroke="#1F2A44" stroke-width="2.5"/>
+      <rect x="140" y="173.5" width="16" height="9" fill="#C8261E"/>
+      <rect x="176" y="173.5" width="16" height="9" fill="#C8261E"/>
+      <rect x="212" y="173.5" width="16" height="9" fill="#C8261E"/>
+      <rect x="248" y="173.5" width="16" height="9" fill="#C8261E"/>
+    </g>
+    <circle cx="118" cy="178" r="6" fill="#E9A830" stroke="#1F2A44" stroke-width="2"/>
+    <text class="sound" x="190" y="78">カンカン</text>
+  </svg>
+
+  <div class="draw-area">
+    <button id="drawBtn" class="btn" type="button">おみくじを引く</button>
+    <p class="hint" id="drawHint">結果に書かれたお題に答えると、すごろくを進めるよ</p>
+  </div>
+
+  <section id="result" aria-live="polite"></section>
+
+</div>
+
+<script>
+/* ===== 設定：出やすさ（合計100でなくてもOK）とルール ===== */
+const FORTUNES = [
+  {
+    id: 'daikichi', name: '大吉', weight: 10,
+    reward: '正解で 5マス進む',
+    type: 'single',
+    q: '「ゲゲゲの鬼太郎」の作者は？',
+    note: 'ヒント：調布に長く住んでいた漫画家です。',
+    choices: ['水木しげる', '手塚治虫', '藤子・F・不二雄', '赤塚不二夫'],
+    answer: '水木しげる',
+    stepsCorrect: 5, stepsWrong: 3,
+    explain: '正解は水木しげるさん。調布市に長く暮らし、市の名誉市民にもなっています。天神通り商店街や深大寺のまわりで、作品にちなんだものを探してみよう。'
+  },
+  {
+    id: 'chukichi', name: '中吉', weight: 15,
+    reward: '2人正解で 2マス、1人で 1マス',
+    type: 'multi', pick: 2,
+    q: '調布が舞台の映画「花束みたいな恋をした」。主人公2人の名前は？',
+    note: '2人まで選んでね。',
+    choices: ['山音 麦', '八谷 絹', '早瀬 陽', '小野寺 灯', '青木 蒼', '森川 夏希'],
+    answers: ['山音 麦', '八谷 絹'],
+    explain: '正解は 山音麦（演：菅田将暉）と 八谷絹（演：有村架純）。調布駅周辺が2人の暮らすまちとして登場します。'
+  },
+  {
+    id: 'shokichi', name: '小吉', weight: 40,
+    reward: '正解で 1マス進む',
+    type: 'single',
+    q: '京王線の仙川駅〜国領駅付近の踏切をなくす計画。全体の事業費はおよそいくら？',
+    note: '線路を高架か地下にして、5か所の「開かずの踏切」をなくす計画です。',
+    choices: ['約200億円', '約500億円', '約800億円', '約1,500億円'],
+    answer: '約800億円',
+    stepsCorrect: 1, stepsWrong: 0,
+    explain: '正解は約800億円（約867億円）。踏切がなくなると移動しやすくなり、深大寺や神代植物公園、多摩川を回る人が増えることも期待されています。',
+    source: '出典：国土交通省「新規事業採択時評価結果（令和8年度新規着工準備箇所）京王電鉄京王線（仙川駅～国領駅付近）」'
+  },
+  {
+    id: 'kyo', name: '凶', weight: 35,
+    reward: '深大寺へもどって厄払い',
+    type: 'mission',
+    q: '深大寺にもどって、厄を払おう',
+    mission: ['深大寺にお参りする', 'お守りを授かって厄払い完了', '不動の滝の前で、そっと手を合わせる'],
+    explain: '厄払いができたら、深大寺のマスから再スタート。次はきっといいことがあるよ。'
+  }
+];
+/* ========================================================== */
+
+const $ = (s, el = document) => el.querySelector(s);
+const crossing = $('#crossing');
+const drawBtn = $('#drawBtn');
+const resultEl = $('#result');
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+let firstDraw = true; /* ページを開いて最初の1回は必ず凶 */
+function pickFortune(){
+  if (firstDraw){ firstDraw = false; return FORTUNES.find(f => f.id === 'kyo'); }
+  const total = FORTUNES.reduce((s, f) => s + f.weight, 0);
+  let r = Math.random() * total;
+  for (const f of FORTUNES){ if ((r -= f.weight) < 0) return f; }
+  return FORTUNES[FORTUNES.length - 1];
+}
+function shuffle(a){
+  const b = a.slice();
+  for (let i = b.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; }
+  return b;
+}
+function el(tag, attrs = {}, ...kids){
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)){
+    if (k === 'class') n.className = v;
+    else if (k.startsWith('on')) n.addEventListener(k.slice(2), v);
+    else n.setAttribute(k, v);
+  }
+  for (const k of kids){ if (k != null) n.append(k); }
+  return n;
+}
+
+drawBtn.addEventListener('click', () => {
+  drawBtn.disabled = true;
+  drawBtn.textContent = 'カンカン…';
+  resultEl.replaceChildren();
+  crossing.classList.add('drawing');
+  const f = pickFortune();
+  setTimeout(() => {
+    crossing.classList.remove('drawing');
+    drawBtn.hidden = true;
+    $('#drawHint').hidden = true;
+    render(f);
+  }, reduced ? 300 : 2200);
+});
+
+function moveBox(steps, extra){
+  const box = el('div', {class: 'result-move'});
+  box.append(el('span', {class: 'big'}, steps > 0 ? `${steps}マス進む` : '今回は進めない'));
+  if (extra) box.append(el('span', {}, extra));
+  return box;
+}
+
+function render(f){
+  const slip = el('article', {class: 'slip'});
+  slip.append(el('div', {class: 'slip-head'},
+    el('div', {class: 'fortune'}, f.name),
+    el('div', {class: 'slip-meta'},
+      el('span', {class: 'label'}, '踏切おみくじ'),
+      el('span', {class: 'reward'}, f.reward))
+  ));
+  const body = el('div', {class: 'slip-body'});
+  slip.append(body);
+  body.append(el('p', {class: 'q'}, f.q));
+  if (f.note) body.append(el('p', {class: 'qnote'}, f.note));
+
+  const after = el('div');
+  const actions = el('div', {class: 'actions'});
+
+  if (f.type === 'single'){
+    const list = el('div', {class: 'choices'});
+    const buttons = shuffle(f.choices).map(c => el('button', {class: 'choice', type: 'button', onclick: () => {
+      const ok = c === f.answer;
+      buttons.forEach(b => {
+        b.disabled = true;
+        if (b.textContent === f.answer) b.classList.add('correct');
+        else if (b === btnOf(c) && !ok) b.classList.add('wrong');
+      });
+      after.append(
+        el('div', {class: 'answer'}, el('strong', {}, ok ? '正解！' : 'ざんねん…'), el('br'), f.explain),
+        moveBox(ok ? f.stepsCorrect : f.stepsWrong, ok ? '' : (f.stepsWrong > 0 ? '大吉なので少しだけ進めるよ' : ''))
+      );
+      if (f.source) after.append(el('p', {class: 'source'}, f.source));
+      showActions();
+    }}, c));
+    const btnOf = c => buttons.find(b => b.textContent === c);
+    list.append(...buttons);
+    body.append(list);
+  }
+
+  if (f.type === 'multi'){
+    const list = el('div', {class: 'choices'});
+    const picked = new Set();
+    const confirm = el('button', {class: 'btn ghost', type: 'button', disabled: ''}, '答えを決定する');
+    const buttons = shuffle(f.choices).map(c => {
+      const b = el('button', {class: 'choice', type: 'button', 'aria-pressed': 'false', onclick: () => {
+        if (picked.has(c)) picked.delete(c);
+        else if (picked.size < f.pick) picked.add(c);
+        buttons.forEach(x => x.setAttribute('aria-pressed', picked.has(x.textContent) ? 'true' : 'false'));
+        confirm.disabled = picked.size === 0;
+      }}, c);
+      return b;
+    });
+    confirm.addEventListener('click', () => {
+      const hits = [...picked].filter(p => f.answers.includes(p)).length;
+      buttons.forEach(b => {
+        b.disabled = true;
+        b.removeAttribute('aria-pressed');
+        if (f.answers.includes(b.textContent)) b.classList.add('correct');
+        else if (picked.has(b.textContent)) b.classList.add('wrong');
+      });
+      confirm.hidden = true;
+      const head = hits === 2 ? '2人とも正解！' : hits === 1 ? '1人正解！' : 'ざんねん…';
+      after.append(
+        el('div', {class: 'answer'}, el('strong', {}, head), el('br'), f.explain),
+        moveBox(hits)
+      );
+      showActions();
+    });
+    list.append(...buttons);
+    body.append(list, el('div', {class: 'actions'}, confirm));
+  }
+
+  if (f.type === 'mission'){
+    const ul = el('ul', {class: 'mission'});
+    f.mission.forEach((m, i) => ul.append(el('li', {}, el('span', {class: 'dot'}, String(i + 1)), m)));
+    body.append(ul);
+    const done = el('button', {class: 'btn ghost', type: 'button', onclick: () => {
+      done.hidden = true;
+      after.append(el('div', {class: 'answer'}, el('strong', {}, '厄払い完了！'), el('br'), f.explain));
+      showActions();
+    }}, '厄払いできた');
+    body.append(el('div', {class: 'actions'}, done));
+  }
+
+  body.append(after, actions);
+
+  function showActions(){
+    actions.append(el('button', {class: 'btn ghost', type: 'button', onclick: reset}, '次の踏切でまた引く'));
+  }
+
+  resultEl.replaceChildren(slip);
+  slip.scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block: 'start'});
+}
+
+function reset(){
+  resultEl.replaceChildren();
+  drawBtn.hidden = false;
+  drawBtn.disabled = false;
+  drawBtn.textContent = 'おみくじを引く';
+  $('#drawHint').hidden = false;
+  window.scrollTo({top: 0, behavior: reduced ? 'auto' : 'smooth'});
+}
+</script>
+</body>
+</html>
+
+</body></html>
